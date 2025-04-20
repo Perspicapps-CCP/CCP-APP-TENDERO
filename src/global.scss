@@ -9,7 +9,6 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
-
 /* Core CSS required for Ionic components to work properly */
 @use "@ionic/angular/css/core.css";
 
@@ -26,18 +25,122 @@
 @use "@ionic/angular/css/text-transformation.css";
 @use "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@use '@ionic/angular/css/palettes/dark.system.css';
-
+@use "@angular/material" as mat;
 
 @use "scss/custom-bootstrap";
+
 @use "scss/font-conf";
+
+@use "bootstrap-icons/font/bootstrap-icons.css";
+
 @use "tailwindcss" as *;
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette
+      ),
+      typography: Lato,
+      density: 0
+    )
+  );
+}
+
+strong.highlight {
+  background-color: #ffff0092;
+}
+
+.mat-mdc-dialog-surface {
+  border-radius: 12px !important;
+}
+
+.multiline-snackbar {
+  white-space: pre-wrap !important;
+  line-height: 1.5;
+}
+
+/** custom maps styles */
+/* Estilos para el InfoWindow personalizado */
+/* Estos estilos se pueden agregar globalmente (styles.scss) o usar Angular ViewEncapsulation.None */
+
+.custom-info-window {
+  padding: 12px;
+  font-family: "Roboto", sans-serif;
+  border-radius: 8px;
+}
+
+.custom-info-window h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #0f53ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.custom-info-window p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.info-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.info-btn {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.info-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.info-btn-primary {
+  background-color: #0f53ff;
+  color: white;
+  border-color: #0f53ff;
+}
+
+.info-btn-primary:hover {
+  background-color: #0040db;
+  border-color: #0040db;
+}
+
+/* Estilos para personalizar el InfoWindow de Google Maps */
+/* Esto afecta a la ventana en sí, no solo al contenido */
+/* Es necesario agregar estos estilos globalmente */
+
+.gm-style .gm-style-iw-c {
+  padding: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.gm-style .gm-style-iw-d {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* Botón de cerrar por defecto de Google Maps (opcional ocultar) */
+.gm-style .gm-style-iw-t button {
+  top: 0 !important;
+  right: 0 !important;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

@@ -1,0 +1,67 @@
+<div class="flex flex-col py-[3.125rem] px-[1.875rem] gap-[3.5rem]">
+  <mat-card
+    appearance="outlined"
+    class="flex flex-col items-center justify-center min-h-[12.6875rem]">
+    <img
+      src="assets/logos/logo-ccp-container.svg"
+      alt="{{ 'LOGIN.IMAGE_ALT' | translate }}"
+      class="logo" />
+  </mat-card>
+  <div class="container-form">
+    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()">
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="ususario"
+          placeholder="{{ 'LOGIN.FORM.USERNAME' | translate }}"
+          autocomplete="username"
+          formControlName="username"
+          [ngClass]="{ 'is-invalid': isInvalid('username') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('username') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="input-group has-validation">
+          <input
+            #passwordInput
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="{{ 'LOGIN.FORM.PASSWORD' | translate }}"
+            autocomplete="current-password"
+            [ngClass]="{ 'is-invalid': isInvalid('password') }"
+            formControlName="password" />
+          <span class="input-group-text">
+            <i
+              class="bi bi-eye-slash"
+              id="toggleIcon"
+              tabindex="0"
+              (click)="togglePasswordVisibility(passwordInput)"
+              (keydown.enter)="togglePasswordVisibility(passwordInput)"
+              [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+          </span>
+          <div class="invalid-feedback">
+            {{ getErrorMessage('password') | async }}
+          </div>
+        </div>
+      </div>
+      <div class="w-full flex flex-col gap-[0.625rem]">
+        <button
+          class="btn w-full button-login btn-outline-primary"
+          type="submit"
+          [disabled]="loginForm.invalid">
+          {{ 'LOGIN.FORM.BUTTON' | translate }}
+        </button>
+        <div class="line-text">o</div>
+
+        <button class="btn w-full button-login btn-outline-secondary" [disabled]="true">
+          {{ 'LOGIN.FORM.CHANGE_PASSWORD_BTN' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="flex flex-col"></div>
+</div>

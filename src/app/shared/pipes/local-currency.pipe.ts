@@ -5,17 +5,16 @@ import { LocalizationService } from '../services/localization.service';
 @Pipe({
   name: 'localCurrency',
   standalone: true,
-  pure: false
+  pure: false,
 })
 export class LocalCurrencyPipe implements PipeTransform {
-
-  constructor(private localizationService: LocalizationService) { }
+  constructor(private localizationService: LocalizationService) {}
 
   transform(
-    value: number,
+    value: number | string,
     currencyCode?: string,
     display?: 'code' | 'symbol' | 'symbol-narrow' | string | boolean,
-    digitsInfo?: string
+    digitsInfo?: string,
   ): string | null {
     const locale = this.localizationService.getLocale();
     const currency = currencyCode || this.localizationService.getCurrencyCode();
