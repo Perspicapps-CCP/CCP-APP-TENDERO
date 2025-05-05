@@ -10,30 +10,30 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
-@use "@ionic/angular/css/core.css";
+@use '@ionic/angular/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-@use "@ionic/angular/css/normalize.css";
-@use "@ionic/angular/css/structure.css";
-@use "@ionic/angular/css/typography.css";
-@use "@ionic/angular/css/display.css";
+@use '@ionic/angular/css/normalize.css';
+@use '@ionic/angular/css/structure.css';
+@use '@ionic/angular/css/typography.css';
+@use '@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
-@use "@ionic/angular/css/padding.css";
-@use "@ionic/angular/css/float-elements.css";
-@use "@ionic/angular/css/text-alignment.css";
-@use "@ionic/angular/css/text-transformation.css";
-@use "@ionic/angular/css/flex-utils.css";
+@use '@ionic/angular/css/padding.css';
+@use '@ionic/angular/css/float-elements.css';
+@use '@ionic/angular/css/text-alignment.css';
+@use '@ionic/angular/css/text-transformation.css';
+@use '@ionic/angular/css/flex-utils.css';
 
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
-@use "scss/custom-bootstrap";
+@use 'scss/custom-bootstrap';
 
-@use "scss/font-conf";
+@use 'scss/font-conf';
 
-@use "bootstrap-icons/font/bootstrap-icons.css";
+@use 'bootstrap-icons/font/bootstrap-icons.css';
 
-@use "tailwindcss" as *;
+@use 'tailwindcss' as *;
 
 html {
   @include mat.theme(
@@ -41,10 +41,10 @@ html {
       color: (
         theme-type: light,
         primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette
+        tertiary: mat.$blue-palette,
       ),
       typography: Lato,
-      density: 0
+      density: 0,
     )
   );
 }
@@ -62,13 +62,26 @@ strong.highlight {
   line-height: 1.5;
 }
 
+.standard-icon {
+  font-family: 'Material Icons', sans-serif;
+}
+
+.rounded-icon {
+  font-family: 'Material Icons Round', sans-serif;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 40;
+}
+
 /** custom maps styles */
 /* Estilos para el InfoWindow personalizado */
 /* Estos estilos se pueden agregar globalmente (styles.scss) o usar Angular ViewEncapsulation.None */
 
 .custom-info-window {
   padding: 12px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   border-radius: 8px;
 }
 
@@ -140,7 +153,109 @@ strong.highlight {
 
 .content {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 0.75rem;
   height: 100%;
+  padding: 0.75rem;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    gap: 0.75rem;
+  }
+}
+
+.btn-dark-primary {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--primary-700);
+  --bs-btn-bg: transparent;
+  --bs-btn-hover-color: var(--primary-700);
+  --bs-btn-hover-bg: #{shade-color(--primary-700, 10%)};
+  --bs-btn-hover-border-color: #{shade-color(--primary-700, 10%)};
+  --bs-btn-focus-shadow-rgb: var(--primary-700);
+  --bs-btn-active-color: var(--primary-700);
+  --bs-btn-active-bg: #{shade-color(--primary-700, 20%)};
+  --bs-btn-active-border-color: #{shade-color(--primary-700, 20%)};
+  font-weight: normal;
+  font-size: 0.875rem;
+}
+
+.producto-catalogo {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .detalle-producto {
+    display: flex;
+    gap: 0.5rem;
+
+    .image-producto {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 0.375rem;
+      }
+    }
+    .content-producto {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      .item-producto {
+        display: flex;
+        font-size: 0.75rem;
+        font-weight: bold;
+        gap: 0.5rem;
+        align-items: center;
+      }
+    }
+  }
+
+  .opciones-cantidad {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    align-items: center;
+
+    .cantidad-input {
+      flex: 1;
+    }
+
+    .btn-actions {
+      padding: 6px 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      mat-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+.badge {
+  position: absolute;
+  background-color: var(--bs-danger);
+  font-weight: bold;
+  font-size: 8px;
+  width: 10px;
+  height: 10px;
+  padding: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+  color: var(--bs-white);
+  top: 8px;
+  right: 8px;
 }

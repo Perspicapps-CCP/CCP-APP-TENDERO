@@ -6,11 +6,13 @@ import { provideRouter, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { UsuarioService } from './usuario.service';
 
 describe('LoginService', () => {
   let service: LoginService;
   let httpMock: HttpTestingController;
   let router: Router;
+  let usuarioService: jasmine.SpyObj<UsuarioService>;
   let originalLocalStorage: {
     getItem: (key: string) => string | null;
     setItem: (key: string, value: string) => void;
@@ -56,13 +58,23 @@ describe('LoginService', () => {
       writable: true,
     });
 
+    // Crear un mock para UsuarioService
+    const usuarioServiceSpy = jasmine.createSpyObj('UsuarioService', [], ['usuario']);
+
     TestBed.configureTestingModule({
-      providers: [LoginService, provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
+      providers: [
+        LoginService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        { provide: UsuarioService, useValue: usuarioServiceSpy },
+      ],
     });
 
     service = TestBed.inject(LoginService);
     httpMock = TestBed.inject(HttpTestingController);
     router = TestBed.inject(Router);
+    usuarioService = TestBed.inject(UsuarioService) as jasmine.SpyObj<UsuarioService>;
   });
 
   afterEach(() => {
@@ -81,7 +93,7 @@ describe('LoginService', () => {
         id: '253e3e87-1981-4197-a140-eddb470b00af',
         username: 'Esteban.Bins',
         email: 'Nola_Wiza72@gmail.com',
-        role: 'STAFF',
+        role: 'SELLER',
       },
     };
 
@@ -103,6 +115,45 @@ describe('LoginService', () => {
     req.flush(mockResponse);
   });
 
+  it('should throw error and call cerrarSesion when user role is not SELLER', done => {
+    const mockUser = { username: 'testuser', password: 'testpassword' };
+    const mockResponse = {
+      access_token: 'e77c0b8a-a7b9-4c31-a524-a7c32e87b248',
+      user: {
+        id: '253e3e87-1981-4197-a140-eddb470b00af',
+        username: 'Esteban.Bins',
+        email: 'Nola_Wiza72@gmail.com',
+        role: 'ADMIN', // Usuario con rol diferente a SELLER
+      },
+    };
+
+    spyOn(router, 'navigate');
+    spyOn(service, 'cerrarSesion').and.callThrough();
+
+    service.iniciarSesion(mockUser.username, mockUser.password).subscribe({
+      next: () => {
+        // Si llegamos aquí, la prueba debería fallar
+        fail('Should have failed with role error');
+      },
+      error: error => {
+        // Verificamos que se llamó a cerrarSesion
+        expect(service.cerrarSesion).toHaveBeenCalled();
+        // Verificamos el mensaje de error
+        expect(error.message).toBe('Acceso denegado. Este portal es exclusivo para vendedores.');
+        // Verificamos que se eliminaron los datos del localStorage
+        expect(localStorage.removeItem).toHaveBeenCalledWith('token');
+        expect(localStorage.removeItem).toHaveBeenCalledWith('usuario');
+        // Verificamos la navegación a la página de login
+        expect(router.navigate).toHaveBeenCalledWith(['/auth/login']);
+        done();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.apiUrlCCP}/api/v1/users/login`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
+  });
+
   it('should log out user and remove data from localStorage', () => {
     spyOn(router, 'navigate');
 
@@ -111,5 +162,24 @@ describe('LoginService', () => {
     expect(localStorage.removeItem).toHaveBeenCalledWith('token');
     expect(localStorage.removeItem).toHaveBeenCalledWith('usuario');
     expect(router.navigate).toHaveBeenCalledWith(['/auth/login']);
+  });
+
+  it('should handle HTTP errors during login', done => {
+    const mockUser = { username: 'testuser', password: 'testpassword' };
+    const mockErrorResponse = { status: 401, statusText: 'Unauthorized' };
+
+    service.iniciarSesion(mockUser.username, mockUser.password).subscribe({
+      next: () => {
+        fail('Should have failed with HTTP error');
+      },
+      error: error => {
+        expect(error.status).toBe(401);
+        done();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.apiUrlCCP}/api/v1/users/login`);
+    expect(req.request.method).toBe('POST');
+    req.flush('Invalid credentials', mockErrorResponse);
   });
 });

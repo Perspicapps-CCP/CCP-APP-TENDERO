@@ -29,6 +29,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MAT_MENU_DEFAULT_OPTIONS } from '@angular/material/menu';
 import { httpHeadersInterceptor } from './shared/interceptores/http-headers.interceptor';
 import { httpSpinnerInterceptor } from './shared/interceptores/http-spinner.interceptor';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 // Registrar los locales
 registerLocaleData(localeEsCO);
@@ -50,6 +51,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptorsFromDi(),
       withInterceptors([httpHeadersInterceptor, httpSpinnerInterceptor]),
     ),
+    importProvidersFrom(IonicStorageModule.forRoot()),
     provideAnimations(),
     importProvidersFrom(
       TranslateModule.forRoot({

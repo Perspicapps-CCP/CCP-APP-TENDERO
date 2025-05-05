@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './modules/layout/paginas/layout/layout.component';
+import { validateTokenGuard } from './shared/guards/validate-token.guard';
 
 export const routes: Routes = [
   {
@@ -9,21 +10,26 @@ export const routes: Routes = [
   {
     path: 'home',
     component: LayoutComponent,
-    // canActivate: [validateTokenGuard],
-    // canActivateChild: [validateTokenGuard],
+    canActivate: [validateTokenGuard],
+    canActivateChild: [validateTokenGuard],
     children: [
       {
-        path: 'clientes',
+        path: 'catalogo',
         loadChildren: () =>
-          import('./modules/clientes/clientes.routes').then(m => m.CLIENTES_ROUTES),
+          import('./modules/catalogo/catalogo.routes').then(m => m.CATALOGO_ROUTES),
       },
       {
-        path: 'visitas',
-        loadChildren: () => import('./modules/visitas/visitas.routes').then(m => m.VISITAS_ROUTES),
+        path: 'pedidos',
+        loadChildren: () => import('./modules/pedidos/pedidos.routes').then(m => m.PEDIDOS_ROUTES),
       },
       {
-        path: 'rutas',
-        loadChildren: () => import('./modules/rutas/rutas.routes').then(m => m.RUTAS_ROUTES),
+        path: 'entregas',
+        loadChildren: () =>
+          import('./modules/entregas/entregas.routes').then(m => m.ENTREGAS_ROUTES),
+      },
+      {
+        path: 'perfil',
+        loadChildren: () => import('./modules/perfil/perfil.routes').then(m => m.PERFIL_ROUTES),
       },
       {
         path: '',

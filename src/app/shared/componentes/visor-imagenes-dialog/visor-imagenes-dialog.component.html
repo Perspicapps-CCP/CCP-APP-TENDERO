@@ -1,0 +1,13 @@
+<div class="image-container">
+  @if (producto.images) {
+    <ngb-carousel>
+      @for (image of producto.images; track $index; let i = $index) {
+        <ng-template ngbSlide>
+          <div class="image-container">
+            <img [src]="image" [alt]="producto.product_code + '-' + (i + 1)" />
+          </div>
+        </ng-template>
+      }
+    </ngb-carousel>
+  }
+</div>

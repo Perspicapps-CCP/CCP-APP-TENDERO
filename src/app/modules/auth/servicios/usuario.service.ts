@@ -20,6 +20,6 @@ export class UsuarioService {
     if (tokenSession) {
       return tokenSession;
     }
-    return this._usuario?.access_token || '';
+    return '';
   }
 }

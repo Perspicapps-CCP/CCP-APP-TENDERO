@@ -64,13 +64,6 @@ describe('UsuarioService', () => {
     expect(user).toEqual(mockUser);
   });
 
-  it('should call get token and get token correctly', () => {
-    service.usuario = mockUser;
-    localStorage.getItem = jasmine.createSpy('getItem').and.returnValue(null);
-    const token = service.token;
-    expect(token).toEqual('e77c0b8a-a7b9-4c31-a524-a7c32e87b248');
-  });
-
   it('should call token and get "" when user dont exist', () => {
     localStorage.getItem = jasmine.createSpy('getItem').and.returnValue(null);
     const token = service.token;

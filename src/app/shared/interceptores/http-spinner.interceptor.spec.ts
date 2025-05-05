@@ -1,8 +1,8 @@
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { httpSpinnerInterceptor } from './http-spinner.interceptor';
-import { SpinnerService } from '../servicios/spinner.service';
 import { Observable, of } from 'rxjs';
+import { SpinnerService } from '../services/spinner.service';
 
 describe('httpSpinnerInterceptor', () => {
   let spinnerService: jasmine.SpyObj<SpinnerService>;

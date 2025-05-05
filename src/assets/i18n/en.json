@@ -16,17 +16,120 @@
     }
   },
   "CLIENTES": {
-    "TITLE": "Clientes",
-    "SEARCH_PLACEHOLDER": "Filtrar Clientes",
-    "NO_RESENT_VISIT": "Clientes sin visita reciente",
-    "CLIENT_DETAIL_BTN": "Ver Cliente"
+    "TITLE": "Clients",
+    "SEARCH_PLACEHOLDER": "Filter Clients",
+    "NO_RESENT_VISIT": "Clients without recent visits",
+    "CLIENT_DETAIL_BTN": "View Client",
+    "SEE_DETAIL_BTN": "See Detail",
+    "CLIENT_NOT_RECENT_VISIT": "Client without recent visit",
+    "NO_CLIENTS": "No clients found"
   },
   "RUTAS": {
-    "TITLE": "Rutas",
-    "SEARCH_PLACEHOLDER": "Filtrar Rutas"
+    "TITLE": "Routes",
+    "SEARCH_PLACEHOLDER": "Filter Routes",
+    "DETALLE_RUTA": {
+      "TITLE": "Route Detail",
+      "SEARCH_PLACEHOLDER": "Filter Route Detail",
+      "NO_RESENT_VISIT": "Routes without recent visits",
+      "CLIENT_DETAIL_BTN": "View Client"
+    },
+    "NO_ROUTES": "No routes found"
   },
   "VISITAS": {
-    "TITLE": "Visitas",
-    "SEARCH_PLACEHOLDER": "Filtrar Visitas"
+    "TITLE": "Visits",
+    "SEARCH_PLACEHOLDER": "Filter Visits",
+    "NO_RESENT_VISIT": "Visits without recent visits",
+    "CREAR_VISITA": {
+      "TITLE": "Create Visit",
+      "FORM": {
+        "CLIENT": "Select client",
+        "DESCRIPCION_VISITA": "Enter a visit description",
+        "IMAGES_UPLOAD": "Upload",
+        "NOT_IMAGES": "No images to upload",
+        "IMAGES_CHARGED": "images charged"
+      },
+      "FORM_ERRORS": {
+        "FIELD_REQUIRED": "This field is required",
+        "USERNAME_MIN_LENGTH": "User must be at least 3 characters long",
+        "PASSWORD_MIN_LENGTH": "Password must be at least 6 characters long",
+        "ALL_FILES_MUST_BE_IMAGES": "All files must be images"
+      },
+      "BUTTON": {
+        "SAVE": "Save",
+        "CANCEL": "Cancel"
+      },
+      "TOAST": {
+        "SUCCESS": "Visit created successfully",
+        "ERROR": "Error creating visit"
+      }
+    }
+  },
+  "DETALLE-CLIENTE": {
+    "BUTTON": {
+      "CLIENT_VIDEOS": "See videos details",
+      "CATALOG_PRODUCTS": "See catalog products",
+      "SHOOPING_CART": "See shopping cart",
+      "ORDER_DETAIL": "See order"
+    },
+    "CLIENT_ORDERS": "Orders",
+    "ARTICLES": "Articles"
+  },
+  "CATALOGO_PRODUCTOS": {
+    "TITLE": "Catalog Products",
+    "SEARCH_PLACEHOLDER": "Filter Catalog Products",
+    "NO_CATALOG_PRODUCTS": "No catalog products found",
+    "PRODUCT_DETAIL_BTN": "See Product Detail",
+    "BUTTON": {
+      "ADD_TO_CART": "Add to cart",
+      "SHOOPING_CART": "See shopping cart"
+    },
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    }
+  },
+  "DETALLE_PRODUCTO": {
+    "BUTTON": {
+      "ADD_TO_CART": "Add to cart"
+    },
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    }
+  },
+  "CARRITO_COMPRAS": {
+    "TITLE": "Shopping Cart",
+    "BUTTON": {
+      "ORDER": "Place order",
+      "REMOVE_PRODUCT": "Remove product"
+    },
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    },
+    "TOTAL": "Total",
+    "ARTICLES": "Articles",
+    "CREAR_PEDIDO": "Crear pedido"
+  },
+  "DETALLE_PEDIDO": {
+    "TITLE": "Order Detail",
+    "UNIT_PRODUCT": "Unit",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    },
+    "TOTAL": "Total",
+    "ARTICLES": "Articles"
+  },
+  "DETALLE_VIDEOS": {
+    "TITLE": "Videos Detail",
+    "VIDEOS_CARGADOS": "Loaded videos",
+    "NO_VIDEOS": "No videos found",
+    "BUTTON": {
+      "ADD_VIDEO": "Add video",
+      "SEE_VIDEO": "See video"
+    }
   }
 }

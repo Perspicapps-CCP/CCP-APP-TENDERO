@@ -1,102 +1,63 @@
-// Configuración principal de fuentes
-:root {
-  // Aplicar Lato como fuente principal de Ionic
-  --ion-font-family: "Lato", sans-serif;
-
-  // Variables de pesos de fuente
-  --font-weight-thin: 100;
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-  --font-weight-bold: 700;
-  --font-weight-black: 900;
-}
-
 body {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   background-color: #f8f9fa;
 }
 .lato-thin {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 100;
   font-style: normal;
 }
 
 .lato-light {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 300;
   font-style: normal;
 }
 
 .lato-regular {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .lato-bold {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 700;
   font-style: normal;
 }
 
 .lato-black {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 900;
   font-style: normal;
 }
 
 .lato-thin-italic {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 100;
   font-style: italic;
 }
 
 .lato-light-italic {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 300;
   font-style: italic;
 }
 
 .lato-regular-italic {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 400;
   font-style: italic;
 }
 
 .lato-bold-italic {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 700;
   font-style: italic;
 }
 
 .lato-black-italic {
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   font-weight: 900;
   font-style: italic;
-}
-
-// Estilos adicionales para encabezados
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Lato", sans-serif;
-}
-
-// Pesos específicos para encabezados
-h1 {
-  font-weight: 900; // Black
-}
-
-h2,
-h3 {
-  font-weight: 700; // Bold
-}
-
-h4,
-h5,
-h6 {
-  font-weight: 400; // Regular
 }

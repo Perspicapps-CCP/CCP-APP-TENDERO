@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, tap, throwError, timeout } from 'rxjs';
+import { catchError, map, tap, throwError, timeout } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UsuarioService } from './usuario.service';
 import { Login } from '../interfaces/usuario.interface';
@@ -30,27 +30,15 @@ export class LoginService {
         this.usuarioService.usuario = res;
         this.router.navigate(['/home']);
       }),
-
-      catchError(error => {
-        console.error('Error en login:', error);
-
-        if (error.status === 0) {
-          console.error('Error de conexión. Detalles:', {
-            name: error.name,
-            message: error.message,
-            url: error.url,
-            type: typeof error,
-            stack: error.stack,
-          });
-
-          // Intenta obtener más información sobre la red
-          fetch('http://34.8.227.72').then(
-            () => console.log('Fetch básico funciona'),
-            err => console.error('Fetch básico falla:', err),
-          );
+      map(res => {
+        if (res.user.role !== 'SELLER') {
+          this.cerrarSesion();
+          throw new Error('Acceso denegado. Este portal es exclusivo para vendedores.');
         }
-
-        return throwError(() => new Error('Error de login: ' + (error.message || 'Desconocido')));
+        return res;
+      }),
+      catchError(error => {
+        return throwError(() => error);
       }),
     );
   }

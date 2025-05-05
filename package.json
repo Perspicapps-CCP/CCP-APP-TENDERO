@@ -16,6 +16,7 @@
     "android-live": "ionic capacitor run android -l --external",
     "android-sync": "ionic capacitor sync android",
     "lint": "ng lint",
+    "lint:check": "ng lint",
     "format": "prettier --write \"src/**/*.{ts,html,scss,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,scss,json}\"",
     "lint:fix": "ng lint --fix"
@@ -41,6 +42,7 @@
     "@capacitor/splash-screen": "^7.0.0",
     "@capacitor/status-bar": "^7.0.1",
     "@ionic/angular": "^8.0.0",
+    "@ionic/storage-angular": "^4.0.0",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
@@ -48,7 +50,6 @@
     "@tailwindcss/postcss": "^4.0.13",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "cordova-plugin-globalization": "^1.11.0",
     "ionicons": "^7.0.0",
     "ngx-spinner": "^19.0.0",
     "postcss": "^8.5.3",

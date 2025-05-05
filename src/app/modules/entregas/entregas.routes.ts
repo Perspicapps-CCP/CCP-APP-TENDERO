@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-export const VISITAS_ROUTES: Routes = [
+export const ENTREGAS_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./paginas/visitas/visitas.component').then(c => c.VisitasComponent),
+      import('./paginas/entregas/entregas.component').then(c => c.EntregasComponent),
   },
   {
     path: '',

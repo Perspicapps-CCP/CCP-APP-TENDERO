@@ -1,7 +1,4 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { addIcons } from 'ionicons';
-import { ellipse, square, triangle } from 'ionicons/icons';
 import { MatIconModule } from '@angular/material/icon';
 import { IonLabel, IonTabBar, IonTabButton, IonTabs } from '@ionic/angular/standalone';
 
@@ -15,7 +12,5 @@ import { IonLabel, IonTabBar, IonTabButton, IonTabs } from '@ionic/angular/stand
 export class LayoutComponent {
   public environmentInjector = inject(EnvironmentInjector);
 
-  constructor() {
-    addIcons({ triangle, ellipse, square });
-  }
+  constructor() {}
 }
