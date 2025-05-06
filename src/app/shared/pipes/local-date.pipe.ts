@@ -5,12 +5,10 @@ import { LocalizationService } from '../services/localization.service';
 @Pipe({
   name: 'localDate',
   standalone: true,
-  pure: false
+  pure: false,
 })
 export class LocalDatePipe implements PipeTransform {
-  private lastValue: any;
-  private lastLocale: string = '';
-  private result: string | null = null;
+  private lastLocale = '';
 
   constructor(private localizationService: LocalizationService) {
     // Nos suscribimos a cambios en el locale
@@ -20,22 +18,37 @@ export class LocalDatePipe implements PipeTransform {
     });
   }
 
-  transform(value: any, format?: string): string | null {
+  transform(value: any, format?: string, dateOnly = false): string | null {
     const locale = this.localizationService.getLocale();
     const datePipe = new DatePipe(locale);
 
     if (!format) {
       switch (locale) {
         case 'es-CO':
-          // Formato colombiano con AM/PM en minúscula
-          let formattedDate = datePipe.transform(value, 'dd/MM/yyyy h:mm a');
-          return formattedDate ? formattedDate.replace('AM', 'a.m.').replace('PM', 'p.m.') : null;
+          if (dateOnly) {
+            // Solo fecha en formato colombiano
+            return datePipe.transform(value, 'dd/MM/yyyy');
+          } else {
+            // Formato colombiano con AM/PM en minúscula
+            const formattedDate = datePipe.transform(value, 'dd/MM/yyyy h:mm a');
+            return formattedDate ? formattedDate.replace('AM', 'a.m.').replace('PM', 'p.m.') : null;
+          }
         case 'es-ES':
-          // Formato español (24 horas)
-          return datePipe.transform(value, 'dd/MM/yyyy HH:mm');
+          if (dateOnly) {
+            // Solo fecha en formato español
+            return datePipe.transform(value, 'dd/MM/yyyy');
+          } else {
+            // Formato español (24 horas)
+            return datePipe.transform(value, 'dd/MM/yyyy HH:mm');
+          }
         default:
-          // Formato estadounidense
-          return datePipe.transform(value, 'MM/dd/yyyy h:mm a');
+          if (dateOnly) {
+            // Solo fecha en formato estadounidense
+            return datePipe.transform(value, 'MM/dd/yyyy');
+          } else {
+            // Formato estadounidense
+            return datePipe.transform(value, 'MM/dd/yyyy h:mm a');
+          }
       }
     }
 

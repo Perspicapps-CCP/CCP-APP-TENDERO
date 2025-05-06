@@ -1,25 +1,27 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.proyecto_grupo_3_vendedor.ccp',
   appName: 'ccp',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'http',
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 0
+      launchShowDuration: 0,
     },
     StatusBar: {
-      backgroundColor: '#3880ff', // Color principal de tu app
+      backgroundColor: '#3880ff',
       style: 'light',
-      overlaysWebView: false
-    }
+      overlaysWebView: false,
+    },
   },
   android: {
-    backgroundColor: '#3880ff' // Color principal de tu app
-  }
+    backgroundColor: '#3880ff',
+    allowMixedContent: true,
+    appendUserAgent: 'HighMemoryApp',
+  },
 };
 
 export default config;

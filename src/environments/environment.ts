@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://192.168.1.23:3000/mock/ccp',
+  apiUrlCCP: 'http://34.8.227.72',
+  googleMapsApiKey: 'AIzaSyClja14TPGyVx4PfJOWGZWaYm9Valb899E',
 };
 
 /*

@@ -1,7 +1,15 @@
-
 // Variable de fuente para Bootstrap
-$font-family-sans-serif: 'Lato', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+$font-family-sans-serif:
+  'Lato',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  'Helvetica Neue',
+  Arial,
+  sans-serif;
 
+// Override Bootstrap body background color
+$body-bg: #f8f9fa;
 
 // Importar Bootstrap
-@use "bootstrap/scss/bootstrap" as bootstrap;
+@use 'bootstrap/scss/bootstrap';

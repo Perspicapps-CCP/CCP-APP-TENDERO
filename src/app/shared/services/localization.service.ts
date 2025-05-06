@@ -3,42 +3,59 @@ import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
-import { LanguageConfig } from '../models/LanguajeConfig.interface';
-
 // Importamos todos los locales que necesitamos
 import localeEsCO from '@angular/common/locales/es-CO';
 import localeEsES from '@angular/common/locales/es';
 import localeEnUS from '@angular/common/locales/en';
+import { LanguageConfig } from '../modelos/LanguajeConfig.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalizationService {
   // Configuraciones disponibles
   public availableLanguages: LanguageConfig[] = [
-    { langCode: 'es', localeCode: 'es-CO', name: 'Español (Colombia)', currencyCode: 'COP', region: 'Colombia' },
-    { langCode: 'es', localeCode: 'es-ES', name: 'Español (España)', currencyCode: 'EUR', region: 'España' },
-    { langCode: 'en', localeCode: 'en-US', name: 'English (US)', currencyCode: 'USD', region: 'United States' }
+    {
+      langCode: 'es',
+      localeCode: 'es-CO',
+      name: 'Español (CO)',
+      currencyCode: 'COP',
+      region: 'Colombia',
+    },
+    {
+      langCode: 'es',
+      localeCode: 'es-ES',
+      name: 'Español (ES)',
+      currencyCode: 'EUR',
+      region: 'España',
+    },
+    {
+      langCode: 'en',
+      localeCode: 'en-US',
+      name: 'English (US)',
+      currencyCode: 'USD',
+      region: 'United States',
+    },
   ];
 
   // Único subject para manejar toda la información de localización
   private currentLocalizationSubject = new BehaviorSubject<LanguageConfig>(
-    this.availableLanguages.find(l => l.localeCode === 'en-US') || this.availableLanguages[0]
+    this.availableLanguages.find(l => l.localeCode === 'en-US') || this.availableLanguages[0],
   );
   public currentLocalization$ = this.currentLocalizationSubject.asObservable();
 
   // Derivamos los observables específicos a partir del principal
   public currentLocale$: Observable<string> = this.currentLocalization$.pipe(
-    map(config => config?.localeCode || 'en-US')
+    map(config => config?.localeCode || 'en-US'),
   );
 
   public currentLang$: Observable<string> = this.currentLocalization$.pipe(
-    map(config => config?.langCode || 'en')
+    map(config => config?.langCode || 'en'),
   );
 
   constructor(
     @Inject(LOCALE_ID) private localeId: string,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {
     // Registramos todos los locales
     registerLocaleData(localeEsCO);
@@ -126,7 +143,7 @@ export class LocalizationService {
 
     // Buscamos una configuración con el mismo idioma y la nueva región
     const newLocaleConfig = this.availableLanguages.find(
-      l => l.langCode === currentLang && l.localeCode.endsWith(`-${regionCode}`)
+      l => l.langCode === currentLang && l.localeCode.endsWith(`-${regionCode}`),
     );
 
     if (newLocaleConfig) {
@@ -155,33 +172,6 @@ export class LocalizationService {
 
   public getCurrencyCode(): string {
     return this.getCurrentLocalization()?.currencyCode || 'USD';
-  }
-
-  // Métodos de conveniencia
-  public switchToSpanishColombia(): void {
-    this.setLocale('es-CO');
-  }
-
-  public switchToSpanishSpain(): void {
-    this.setLocale('es-ES');
-  }
-
-  public switchToEnglishUS(): void {
-    this.setLocale('en-US');
-  }
-
-  // Helper para verificar el formato actual
-  public isColombianFormat(): boolean {
-    return this.getLocale() === 'es-CO';
-  }
-
-  public isSpanishFormat(): boolean {
-    return this.getLocale() === 'es-ES';
-  }
-
-  // Obtenemos todas las regiones disponibles para un idioma específico
-  public getAvailableRegionsForLanguage(langCode: string): LanguageConfig[] {
-    return this.availableLanguages.filter(l => l.langCode === langCode);
   }
 
   public getAllAvailableLanguages(): LanguageConfig[] {

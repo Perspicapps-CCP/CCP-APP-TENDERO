@@ -1,0 +1,17 @@
+# Archivos y directorios a ignorar por Prettier
+node_modules
+.ionic
+www
+platforms
+plugins
+resources
+dist
+coverage
+.angular
+.vscode
+.idea
+.git
+*.md
+*.svg
+*.min.js
+.android
