@@ -31,7 +31,7 @@ export class LoginService {
         this.router.navigate(['/home']);
       }),
       map(res => {
-        if (res.user.role !== 'SELLER') {
+        if (res.user.role !== 'CLIENT') {
           this.cerrarSesion();
           throw new Error('Acceso denegado. Este portal es exclusivo para vendedores.');
         }

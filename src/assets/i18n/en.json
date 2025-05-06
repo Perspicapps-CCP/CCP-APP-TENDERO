@@ -7,7 +7,7 @@
       "USERNAME": "User",
       "PASSWORD": "Password",
       "BUTTON": "Login",
-      "CHANGE_PASSWORD_BTN": "Change password"
+      "REGISTER_BTN": "Register"
     },
     "FORM_ERRORS": {
       "FIELD_REQUIRED": "This field is required",

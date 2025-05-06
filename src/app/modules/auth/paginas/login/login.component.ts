@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { sharedImports } from 'src/app/shared/otros/shared-imports';
 import { LoginService } from '../../servicios/login.service';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent {
     private loginService: LoginService,
     private _snackBar: MatSnackBar,
     private translate: TranslateService,
+    private router: Router,
   ) {}
 
   togglePasswordVisibility(passwordInput: HTMLInputElement): void {
@@ -71,5 +73,9 @@ export class LoginComponent {
         },
       });
     }
+  }
+
+  irRegistro() {
+    this.router.navigate(['/auth/register']);
   }
 }

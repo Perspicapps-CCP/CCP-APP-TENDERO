@@ -56,8 +56,11 @@
         </button>
         <div class="line-text">o</div>
 
-        <button class="btn w-full button-login btn-outline-secondary" [disabled]="true">
-          {{ 'LOGIN.FORM.CHANGE_PASSWORD_BTN' | translate }}
+        <button
+          class="btn w-full button-login btn-outline-secondary"
+          type="button"
+          (click)="irRegistro()">
+          {{ 'LOGIN.FORM.REGISTER_BTN' | translate }}
         </button>
       </div>
     </form>

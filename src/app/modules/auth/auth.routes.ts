@@ -6,11 +6,9 @@ export const AUTH_ROUTES: Routes = [
     loadComponent: () => import('./paginas/login/login.component').then(c => c.LoginComponent),
   },
   {
-    path: 'changePassword',
+    path: 'register',
     loadComponent: () =>
-      import('./paginas/change-password/change-password.component').then(
-        c => c.ChangePasswordComponent,
-      ),
+      import('./paginas/register/register.component').then(c => c.RegisterComponent),
   },
   {
     path: '',
