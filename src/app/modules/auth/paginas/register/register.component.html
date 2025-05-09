@@ -1,3 +1,185 @@
-<p>
-  register works!
-</p>
+<div class="flex flex-col py-[3.125rem] px-[1.875rem] gap-[3.5rem]">
+  <mat-card appearance="outlined" class="flex justify-center min-h-[6.6875rem]">
+    <div class="d-flex flex-row justify-content-center align-items-center">
+      <div class="p-2">
+        <img
+          src="assets/logos/logo-ccp-container.svg"
+          alt="{{ 'LOGIN.IMAGE_ALT' | translate }}"
+          class="logo w-16 h-16" />
+      </div>
+      <div class="p-2">
+        <span
+          ><strong style="font-size: 2.25rem">{{ 'SIGNUP.TITLE' | translate }}</strong></span
+        >
+      </div>
+    </div>
+  </mat-card>
+  <div class="container-form">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="userName"
+          placeholder="{{ 'SIGNUP.FORM.USERNAME' | translate }}"
+          formControlName="userName"
+          [ngClass]="{ 'is-invalid': isInvalid('userName') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('userName') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="{{ 'SIGNUP.FORM.FIRST_NAME' | translate }}"
+          formControlName="firstName"
+          [ngClass]="{ 'is-invalid': isInvalid('firstName') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('firstName') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="{{ 'SIGNUP.FORM.LAST_NAME' | translate }}"
+          formControlName="lastName"
+          [ngClass]="{ 'is-invalid': isInvalid('lastName') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('lastName') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="{{ 'SIGNUP.FORM.ADDRESS' | translate }}"
+          formControlName="address"
+          [ngClass]="{ 'is-invalid': isInvalid('address') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('address') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="{{ 'SIGNUP.FORM.EMAIL' | translate }}"
+          autocomplete="email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': isInvalid('email') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('email') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          placeholder="{{ 'SIGNUP.FORM.PHONE' | translate }}"
+          formControlName="phone"
+          [ngClass]="{ 'is-invalid': isInvalid('phone') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('phone') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <select
+          class="form-control"
+          id="identificationType"
+          name="identificationType"
+          formControlName="identificationType"
+          [ngClass]="{ 'is-invalid': isInvalid('identificationType') }">
+          <option value="" disabled selected>
+            {{ 'SIGNUP.FORM.ID_TYPE' | translate }}
+          </option>
+          <option value="NIT">NIT</option>
+          <option value="CC">CC</option>
+          <option value="CE">CE</option>
+        </select>
+        <div class="invalid-feedback">
+          {{ getErrorMessage('identificationType') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <input
+          type="text"
+          class="form-control"
+          id="identification"
+          placeholder="{{ 'SIGNUP.FORM.ID' | translate }}"
+          formControlName="identification"
+          [ngClass]="{ 'is-invalid': isInvalid('identification') }" />
+        <div class="invalid-feedback">
+          {{ getErrorMessage('identification') | async }}
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="input-group has-validation">
+          <input
+            #passwordInput
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="{{ 'SIGNUP.FORM.PASSWORD' | translate }}"
+            autocomplete="current-password"
+            [ngClass]="{ 'is-invalid': isInvalid('password') }"
+            formControlName="password" />
+          <span class="input-group-text">
+            <i
+              class="bi bi-eye-slash"
+              id="toggleIcon"
+              tabindex="0"
+              (click)="togglePasswordVisibility(passwordInput)"
+              (keydown.enter)="togglePasswordVisibility(passwordInput)"
+              [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+          </span>
+          <div class="invalid-feedback">
+            {{ getErrorMessage('password') | async }}
+          </div>
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="input-group has-validation">
+          <input
+            #passwordConfirmationInput
+            type="password"
+            class="form-control"
+            id="passwordConfirmation"
+            placeholder="{{ 'SIGNUP.FORM.PASSWORD_CONFIRMATION' | translate }}"
+            autocomplete="current-password"
+            [ngClass]="{ 'is-invalid': isInvalid('passwordConfirmation') }"
+            formControlName="passwordConfirmation" />
+          <span class="input-group-text">
+            <i
+              class="bi bi-eye-slash"
+              id="toggleIcon"
+              tabindex="0"
+              (click)="togglePasswordVisibility(passwordConfirmationInput)"
+              (keydown.enter)="togglePasswordVisibility(passwordConfirmationInput)"
+              [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+          </span>
+          <div class="invalid-feedback">
+            {{ getErrorMessage('passwordConfirmation') | async }}
+          </div>
+        </div>
+      </div>
+      <div class="w-full flex flex-col gap-[0.625rem]">
+        <button
+          class="btn w-full button-login btn-outline-primary"
+          type="submit"
+          [disabled]="disableSaveButton()">
+          {{ 'SIGNUP.FORM.BUTTON' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="flex flex-col"></div>
+</div>
