@@ -1,4 +1,27 @@
 {
+  "SIGNUP": {
+    "TITLE": "Registrarse",
+    "FORM": {
+      "USERNAME": "Usuario",
+      "EMAIL": "Email",
+      "FIRST_NAME": "Nombres",
+      "LAST_NAME": "Apellidos",
+      "ADDRESS": "Dirección",
+      "PHONE": "Telefono",
+      "ID_TYPE": "Tipo identificación",
+      "ID": "Número Identificación",
+      "PASSWORD": "Contraseña",
+      "PASSWORD_CONFIRMATION": "Confirmación contraseña",
+      "BUTTON": "Registrarse"
+    },
+    "FORM_ERRORS": {
+      "FIELD_REQUIRED": "This field is required",
+      "USERNAME_MIN_LENGTH": "User must be at least 3 characters long",
+      "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long",
+      "PASSWORD_SPECIAL_CHARACTER": "Contraseña debe contener al menos un caracter especial",
+      "PASSWORD_DOES_NOT_MATCH": "Contraseña no coincide"
+    }
+  },
   "HOME": {
     "TITLE": "Bienvenido"
   },

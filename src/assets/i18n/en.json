@@ -15,6 +15,29 @@
       "PASSWORD_MIN_LENGTH": "Password must be at least 6 characters long"
     }
   },
+  "SIGNUP": {
+    "TITLE": "SIGN UP",
+    "FORM": {
+      "USERNAME": "Usuario",
+      "EMAIL": "Correo",
+      "FIRST_NAME": "First name",
+      "LAST_NAME": "Last name",
+      "ADDRESS": "Address",
+      "PHONE": "Telephone number",
+      "ID_TYPE": "Identification type",
+      "ID": "Identification number",
+      "PASSWORD": "Password",
+      "PASSWORD_CONFIRMATION": "Password confirmation",
+      "BUTTON": "Sign Up"
+    },
+    "FORM_ERRORS": {
+      "FIELD_REQUIRED": "This field is required",
+      "USERNAME_MIN_LENGTH": "User must be at least 3 characters long",
+      "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long",
+      "PASSWORD_SPECIAL_CHARACTER": "Password must contain at least one special character",
+      "PASSWORD_DOES_NOT_MATCH": "Password does not match"
+    }
+  },
   "CLIENTES": {
     "TITLE": "Clients",
     "SEARCH_PLACEHOLDER": "Filter Clients",
