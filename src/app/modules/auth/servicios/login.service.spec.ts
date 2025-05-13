@@ -93,7 +93,7 @@ describe('LoginService', () => {
         id: '253e3e87-1981-4197-a140-eddb470b00af',
         username: 'Esteban.Bins',
         email: 'Nola_Wiza72@gmail.com',
-        role: 'SELLER',
+        role: 'CLIENT', // Cambiado de SELLER a CLIENT
       },
     };
 
@@ -115,7 +115,7 @@ describe('LoginService', () => {
     req.flush(mockResponse);
   });
 
-  it('should throw error and call cerrarSesion when user role is not SELLER', done => {
+  it('should throw error and call cerrarSesion when user role is not CLIENT', done => {
     const mockUser = { username: 'testuser', password: 'testpassword' };
     const mockResponse = {
       access_token: 'e77c0b8a-a7b9-4c31-a524-a7c32e87b248',
@@ -123,7 +123,7 @@ describe('LoginService', () => {
         id: '253e3e87-1981-4197-a140-eddb470b00af',
         username: 'Esteban.Bins',
         email: 'Nola_Wiza72@gmail.com',
-        role: 'ADMIN', // Usuario con rol diferente a SELLER
+        role: 'SELLER', // Cambiado de ADMIN a SELLER (o cualquier rol que no sea CLIENT)
       },
     };
 
@@ -139,7 +139,7 @@ describe('LoginService', () => {
         // Verificamos que se llamó a cerrarSesion
         expect(service.cerrarSesion).toHaveBeenCalled();
         // Verificamos el mensaje de error
-        expect(error.message).toBe('Acceso denegado. Este portal es exclusivo para vendedores.');
+        expect(error.message).toBe('Acceso denegado. Este portal es exclusivo para clientes.');
         // Verificamos que se eliminaron los datos del localStorage
         expect(localStorage.removeItem).toHaveBeenCalledWith('token');
         expect(localStorage.removeItem).toHaveBeenCalledWith('usuario');

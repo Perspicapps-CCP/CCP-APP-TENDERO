@@ -1,8 +1,7 @@
-import { Component, inject, Input, model, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Input } from '@angular/core';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Producto } from 'src/app/modules/detalle-cliente/interfaces/productos.interface';
+import { Producto } from '../../../modules/catalogo/interfaces/productos.interface';
 
 @Component({
   selector: 'app-visor-imagenes',
