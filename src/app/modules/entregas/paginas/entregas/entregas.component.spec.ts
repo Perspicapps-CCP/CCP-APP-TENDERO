@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { EntregasComponent } from './entregas.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('EntregasComponent', () => {
   let component: EntregasComponent;
@@ -9,8 +10,8 @@ describe('EntregasComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [EntregasComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), EntregasComponent],
+      schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EntregasComponent);

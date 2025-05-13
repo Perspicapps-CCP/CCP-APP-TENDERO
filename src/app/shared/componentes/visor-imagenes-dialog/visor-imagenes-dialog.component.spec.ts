@@ -3,7 +3,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VisorImagenesDialogComponent } from './visor-imagenes-dialog.component';
-import { Producto } from 'src/app/modules/detalle-cliente/interfaces/productos.interface';
+import { Producto } from '../../../modules/catalogo/interfaces/productos.interface';
 
 describe('VisorImagenesDialogComponent', () => {
   let component: VisorImagenesDialogComponent;
