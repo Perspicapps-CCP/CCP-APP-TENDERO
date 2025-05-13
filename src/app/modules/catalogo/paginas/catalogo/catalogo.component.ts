@@ -31,8 +31,6 @@ import { HighlightTextPipe } from 'src/app/shared/pipes/highlight-text.pipe';
     HighlightTextPipe,
   ],
 })
-export class CatalogoComponent implements OnInit {
+export class CatalogoComponent {
   constructor() {}
-
-  ngOnInit() {}
 }
