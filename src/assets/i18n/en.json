@@ -47,5 +47,18 @@
     "BUTTON": {
       "ORDER_DETAIL": "See order"
     }
+  },
+  "CATALOGO": {
+    "TITLE": "Catalog",
+    "SEARCH_PLACEHOLDER": "Filter Catalog",
+    "NO_ARTICLES": "No articles found",
+    "BUTTON": {
+      "ADD_TO_CART": "Add to cart"
+    },
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    }
   }
 }
