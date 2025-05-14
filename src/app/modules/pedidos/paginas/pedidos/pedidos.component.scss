@@ -1,0 +1,21 @@
+.card-content {
+  background-color: white;
+  .header-card {
+    color: white;
+    border-radius: 12px 12px 0px 0px;
+    background-color: var(--primary-900);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+  }
+  .content-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 12px;
+    font-weight: normal;
+  }
+}
