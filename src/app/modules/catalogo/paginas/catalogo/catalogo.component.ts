@@ -60,7 +60,7 @@ export class CatalogoComponent implements ViewWillEnter, ViewWillLeave {
   ) {}
 
   ionViewWillEnter() {
-    this.carritoComprasService.setCurrentClient(this.usuarioService.usuario?.user?.id!);
+    this.carritoComprasService.setCurrentClient(this.usuarioService.usuario?.id!);
     this.carritoCount = this.carritoComprasService.getCartItemCount();
     this.obtenerProductos();
     this.connectionChangeInventory();
@@ -109,7 +109,7 @@ export class CatalogoComponent implements ViewWillEnter, ViewWillLeave {
   }
 
   irCarritoCompras() {
-    this.router.navigate([`/carrito-compras`]);
+    this.router.navigate([`carrito/carrito-compras`]);
   }
 
   irDetalleProducto(producto: Producto) {

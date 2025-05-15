@@ -60,5 +60,43 @@
     "FORM": {
       "QUANTITY": "Quantity"
     }
+  },
+  "CARRITO_COMPRAS": {
+    "TITLE": "Shopping Cart",
+    "BUTTON": {
+      "ORDER": "Place order",
+      "REMOVE_PRODUCT": "Remove product",
+      "CANCEL": "No",
+      "CONFIRM": "Yes"
+    },
+    "CONFIRM_TITLE": "confirm",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure you want to remove this product from the cart?",
+    "PRODUCT_DELETED": "Product removed",
+    "CONFIRM_PEDIDO_MESSAGE": "Are you sure you want to place the order?",
+    "CONFIRM_PEDIDO_SUCCESS": "Order placed successfully",
+    "CONFIRM_PEDIDO_ERROR": "Error placing order",
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    },
+    "TOTAL": "Total",
+    "ARTICLES": "Articles",
+    "CREAR_PEDIDO": "Crear pedido"
+  },
+  "CATALOGO_PRODUCTOS": {
+    "TITLE": "Catalog Products",
+    "SEARCH_PLACEHOLDER": "Filter Catalog Products",
+    "NO_CATALOG_PRODUCTS": "No catalog products found",
+    "PRODUCT_DETAIL_BTN": "See Product Detail",
+    "BUTTON": {
+      "ADD_TO_CART": "Add to cart",
+      "SHOOPING_CART": "See shopping cart"
+    },
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    }
   }
 }
