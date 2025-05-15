@@ -12,7 +12,7 @@ describe('LoginService', () => {
   let service: LoginService;
   let httpMock: HttpTestingController;
   let router: Router;
-  let usuarioService: jasmine.SpyObj<UsuarioService>;
+  let usuarioService: any; // Cambiamos el tipo para mayor flexibilidad
   let originalLocalStorage: {
     getItem: (key: string) => string | null;
     setItem: (key: string, value: string) => void;
@@ -58,8 +58,16 @@ describe('LoginService', () => {
       writable: true,
     });
 
-    // Crear un mock para UsuarioService
-    const usuarioServiceSpy = jasmine.createSpyObj('UsuarioService', [], ['usuario']);
+    // Crear un mock para UsuarioService con la capacidad de almacenar el valor de usuario
+    const usuarioServiceMock = {
+      _usuario: null,
+      get usuario() {
+        return this._usuario;
+      },
+      set usuario(value) {
+        this._usuario = value;
+      },
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -67,14 +75,14 @@ describe('LoginService', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter([]),
-        { provide: UsuarioService, useValue: usuarioServiceSpy },
+        { provide: UsuarioService, useValue: usuarioServiceMock },
       ],
     });
 
     service = TestBed.inject(LoginService);
     httpMock = TestBed.inject(HttpTestingController);
     router = TestBed.inject(Router);
-    usuarioService = TestBed.inject(UsuarioService) as jasmine.SpyObj<UsuarioService>;
+    usuarioService = TestBed.inject(UsuarioService);
   });
 
   afterEach(() => {
@@ -93,7 +101,7 @@ describe('LoginService', () => {
         id: '253e3e87-1981-4197-a140-eddb470b00af',
         username: 'Esteban.Bins',
         email: 'Nola_Wiza72@gmail.com',
-        role: 'CLIENT', // Cambiado de SELLER a CLIENT
+        role: 'CLIENT',
       },
     };
 
@@ -106,6 +114,8 @@ describe('LoginService', () => {
         'usuario',
         JSON.stringify(mockResponse.user),
       );
+      // Verificar que se asignó el usuario al servicio
+      expect(usuarioService._usuario).toEqual(mockResponse.user);
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
 
@@ -123,7 +133,7 @@ describe('LoginService', () => {
         id: '253e3e87-1981-4197-a140-eddb470b00af',
         username: 'Esteban.Bins',
         email: 'Nola_Wiza72@gmail.com',
-        role: 'SELLER', // Cambiado de ADMIN a SELLER (o cualquier rol que no sea CLIENT)
+        role: 'SELLER',
       },
     };
 
@@ -145,6 +155,9 @@ describe('LoginService', () => {
         expect(localStorage.removeItem).toHaveBeenCalledWith('usuario');
         // Verificamos la navegación a la página de login
         expect(router.navigate).toHaveBeenCalledWith(['/auth/login']);
+        // También verificamos que el usuario se haya asignado antes del error
+        // Como en este flujo se llama a cerrarSesion, es posible que _usuario ya no tenga el valor,
+        // así que no hacemos esta comprobación
         done();
       },
     });
@@ -174,6 +187,8 @@ describe('LoginService', () => {
       },
       error: error => {
         expect(error.status).toBe(401);
+        // Verificamos que NO se asignó usuario al servicio
+        expect(usuarioService._usuario).toBeNull();
         done();
       },
     });

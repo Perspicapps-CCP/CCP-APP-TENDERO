@@ -39,6 +39,15 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'carrito',
+    loadChildren: () =>
+      import('./modules/carrito-compras/carrito-compras.routes').then(
+        m => m.CARRITO_COMPRAS_ROUTES,
+      ),
+    canActivate: [validateTokenGuard],
+    canActivateChild: [validateTokenGuard],
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },

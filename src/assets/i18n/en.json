@@ -38,64 +38,51 @@
       "PASSWORD_DOES_NOT_MATCH": "Password does not match"
     }
   },
-  "CLIENTES": {
-    "TITLE": "Clients",
-    "SEARCH_PLACEHOLDER": "Filter Clients",
-    "NO_RESENT_VISIT": "Clients without recent visits",
-    "CLIENT_DETAIL_BTN": "View Client",
-    "SEE_DETAIL_BTN": "See Detail",
-    "CLIENT_NOT_RECENT_VISIT": "Client without recent visit",
-    "NO_CLIENTS": "No clients found"
-  },
-  "RUTAS": {
-    "TITLE": "Routes",
-    "SEARCH_PLACEHOLDER": "Filter Routes",
-    "DETALLE_RUTA": {
-      "TITLE": "Route Detail",
-      "SEARCH_PLACEHOLDER": "Filter Route Detail",
-      "NO_RESENT_VISIT": "Routes without recent visits",
-      "CLIENT_DETAIL_BTN": "View Client"
-    },
-    "NO_ROUTES": "No routes found"
-  },
-  "VISITAS": {
-    "TITLE": "Visits",
-    "SEARCH_PLACEHOLDER": "Filter Visits",
-    "NO_RESENT_VISIT": "Visits without recent visits",
-    "CREAR_VISITA": {
-      "TITLE": "Create Visit",
-      "FORM": {
-        "CLIENT": "Select client",
-        "DESCRIPCION_VISITA": "Enter a visit description",
-        "IMAGES_UPLOAD": "Upload",
-        "NOT_IMAGES": "No images to upload",
-        "IMAGES_CHARGED": "images charged"
-      },
-      "FORM_ERRORS": {
-        "FIELD_REQUIRED": "This field is required",
-        "USERNAME_MIN_LENGTH": "User must be at least 3 characters long",
-        "PASSWORD_MIN_LENGTH": "Password must be at least 6 characters long",
-        "ALL_FILES_MUST_BE_IMAGES": "All files must be images"
-      },
-      "BUTTON": {
-        "SAVE": "Save",
-        "CANCEL": "Cancel"
-      },
-      "TOAST": {
-        "SUCCESS": "Visit created successfully",
-        "ERROR": "Error creating visit"
-      }
+  "ORDERS": {
+    "TITLE": "Pedidos",
+    "SEARCH_PLACEHOLDER": "Filter Pedidos",
+    "ARTICLES": "Articles",
+    "NO_ORDERS": "No orders found",
+    "ORDER_NUMBER": "Order number: ",
+    "BUTTON": {
+      "ORDER_DETAIL": "See order"
     }
   },
-  "DETALLE-CLIENTE": {
+  "CATALOGO": {
+    "TITLE": "Catalog",
+    "SEARCH_PLACEHOLDER": "Filter Catalog",
+    "NO_ARTICLES": "No articles found",
     "BUTTON": {
-      "CLIENT_VIDEOS": "See videos details",
-      "CATALOG_PRODUCTS": "See catalog products",
-      "SHOOPING_CART": "See shopping cart",
-      "ORDER_DETAIL": "See order"
+      "ADD_TO_CART": "Add to cart"
     },
-    "CLIENT_ORDERS": "Orders",
-    "ARTICLES": "Articles"
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    }
+  },
+  "CARRITO_COMPRAS": {
+    "TITLE": "Shopping Cart",
+    "BUTTON": {
+      "ORDER": "Place order",
+      "REMOVE_PRODUCT": "Remove product",
+      "CANCEL": "No",
+      "CONFIRM": "Yes"
+    },
+    "CONFIRM_TITLE": "confirm",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure you want to remove this product from the cart?",
+    "PRODUCT_DELETED": "Product removed",
+    "CONFIRM_PEDIDO_MESSAGE": "Are you sure you want to place the order?",
+    "CONFIRM_PEDIDO_SUCCESS": "Order placed successfully",
+    "CONFIRM_PEDIDO_ERROR": "Error placing order",
+    "UNIT_PRODUCT": "Unit",
+    "AVALIABLE": "Available",
+    "FORM": {
+      "QUANTITY": "Quantity"
+    },
+    "TOTAL": "Total",
+    "ARTICLES": "Articles",
+    "CREAR_PEDIDO": "Crear pedido"
   },
   "CATALOGO_PRODUCTOS": {
     "TITLE": "Catalog Products",
@@ -110,49 +97,6 @@
     "AVALIABLE": "Available",
     "FORM": {
       "QUANTITY": "Quantity"
-    }
-  },
-  "DETALLE_PRODUCTO": {
-    "BUTTON": {
-      "ADD_TO_CART": "Add to cart"
-    },
-    "UNIT_PRODUCT": "Unit",
-    "AVALIABLE": "Available",
-    "FORM": {
-      "QUANTITY": "Quantity"
-    }
-  },
-  "CARRITO_COMPRAS": {
-    "TITLE": "Shopping Cart",
-    "BUTTON": {
-      "ORDER": "Place order",
-      "REMOVE_PRODUCT": "Remove product"
-    },
-    "UNIT_PRODUCT": "Unit",
-    "AVALIABLE": "Available",
-    "FORM": {
-      "QUANTITY": "Quantity"
-    },
-    "TOTAL": "Total",
-    "ARTICLES": "Articles",
-    "CREAR_PEDIDO": "Crear pedido"
-  },
-  "DETALLE_PEDIDO": {
-    "TITLE": "Order Detail",
-    "UNIT_PRODUCT": "Unit",
-    "FORM": {
-      "QUANTITY": "Quantity"
-    },
-    "TOTAL": "Total",
-    "ARTICLES": "Articles"
-  },
-  "DETALLE_VIDEOS": {
-    "TITLE": "Videos Detail",
-    "VIDEOS_CARGADOS": "Loaded videos",
-    "NO_VIDEOS": "No videos found",
-    "BUTTON": {
-      "ADD_VIDEO": "Add video",
-      "SEE_VIDEO": "See video"
     }
   }
 }

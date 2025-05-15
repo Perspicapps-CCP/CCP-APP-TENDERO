@@ -27,7 +27,7 @@ export class LoginService {
       tap(res => {
         localStorage.setItem('token', res.access_token);
         localStorage.setItem('usuario', JSON.stringify(res.user));
-        this.usuarioService.usuario = res;
+        this.usuarioService.usuario = res.user;
         this.router.navigate(['/home']);
       }),
       map(res => {

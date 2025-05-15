@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.proyecto_grupo_3_vendedor.ccp',
-  appName: 'ccp',
+  appId: 'com.proyecto_grupo_3_vendedor.ccp-tendero',
+  appName: 'ccp-tendero',
   webDir: 'www',
   server: {
     androidScheme: 'http',
