@@ -52,8 +52,7 @@ jobs:
 
       - name: Build Ionic and copy to Android
         run: |
-          npm install -g tailwindcss@4.0.13
-          NO_OXIDE=1 ionic build --prod
+          ionic build --prod
           ionic capacitor sync android
 
       - name: Grant execute permission for gradlew
