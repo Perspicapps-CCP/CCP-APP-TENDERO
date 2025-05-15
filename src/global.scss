@@ -33,7 +33,7 @@
 
 @use 'bootstrap-icons/font/bootstrap-icons.css';
 
-@use 'tailwindcss' as *;
+@use 'tailwindcss/index.css' as *;
 
 html {
   @include mat.theme(
