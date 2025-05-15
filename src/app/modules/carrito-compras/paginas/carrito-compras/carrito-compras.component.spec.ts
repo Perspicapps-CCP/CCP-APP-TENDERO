@@ -10,6 +10,7 @@ import { Subject, of, throwError } from 'rxjs';
 
 import { User } from 'src/app/modules/auth/interfaces/usuario.interface';
 import { UsuarioService } from 'src/app/modules/auth/servicios/usuario.service';
+import { LocalizationService } from 'src/app/shared/services/localization.service'; // Añadida importación
 import { Producto } from '../../interfaces/productos.interface';
 import { CarritoComprasService } from '../../servicios/carrito-compras.service';
 import { CrearPedidoService } from '../../servicios/crear-pedido.service';
@@ -48,6 +49,18 @@ const mockUsuario: User = {
   email: 'juan.perez@example.com',
   role: 'client',
 };
+
+// Mock para el LocalizationService
+const mockLocalizationService = jasmine.createSpyObj('LocalizationService', [
+  'setLocalization',
+  'initializeLanguage',
+  'getLocalization',
+  'initAppLanguage',
+]);
+mockLocalizationService.setLocalization.and.returnValue(null);
+mockLocalizationService.getLocalization.and.returnValue('es');
+mockLocalizationService.initAppLanguage.and.returnValue(null);
+mockLocalizationService.initializeLanguage.and.returnValue(null);
 
 describe('CarritoComprasComponent', () => {
   let component: CarritoComprasComponent;
@@ -122,6 +135,8 @@ describe('CarritoComprasComponent', () => {
         { provide: CarritoComprasService, useValue: carritoComprasServiceSpy },
         { provide: MatSnackBar, useValue: snackBarSpy },
         { provide: CrearPedidoService, useValue: crearPedidoServiceSpy },
+        // Añadir el mock del LocalizationService
+        { provide: LocalizationService, useValue: mockLocalizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
