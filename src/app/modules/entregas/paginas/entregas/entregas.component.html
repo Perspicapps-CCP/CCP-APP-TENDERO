@@ -2,9 +2,6 @@
   <ion-toolbar class="px-[1.25rem]">
     <ion-title> {{ 'DELIVERIES.TITLE' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="getDeliveries()">
-        <mat-icon style="color: var(--bs-gray-600)" slot="icon-only">refresh</mat-icon>
-      </ion-button>
       <ion-button (click)="cerrarSesion()">
         <mat-icon style="color: var(--bs-gray-600)" slot="icon-only">logout</mat-icon>
       </ion-button>
@@ -79,7 +76,7 @@
               </div>
               <div class="mt-2">
                 <span class="me-1">{{ 'DELIVERIES.PRODUCTS' | translate }}</span>
-                <span>{{ cliente.products.length }}</span>
+                <span>{{ cliente.products?.length }}</span>
               </div>
               @for (product of cliente.products; track product.product_code) {
                 <div class="mt-2">

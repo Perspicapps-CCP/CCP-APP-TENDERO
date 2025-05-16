@@ -14,7 +14,6 @@ import { MatCardModule } from '@angular/material/card';
 import { HighlightTextPipe } from '../../../../shared/pipes/highlight-text.pipe';
 import { map, Observable, startWith } from 'rxjs';
 import { DinamicSearchService } from '../../../../shared/services/dinamic-search.service';
-import { LoginService } from '../../../auth/servicios/login.service';
 import { Entrega } from '../../interfaces/entregas.interface';
 import { EntregasService } from '../../servicios/entregas.service';
 
@@ -22,7 +21,6 @@ import { EntregasService } from '../../servicios/entregas.service';
   selector: 'app-entregas',
   templateUrl: './entregas.component.html',
   styleUrls: ['./entregas.component.scss'],
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     IonButton,
@@ -44,16 +42,7 @@ export class EntregasComponent implements ViewWillEnter {
   constructor(
     private entregasService: EntregasService,
     private dinamicSearchService: DinamicSearchService,
-    private loginService: LoginService,
   ) {}
-
-  getDeliveries() {
-    console.log('Entra...');
-    this.entregasService.getDeliveries().subscribe(clientes => {
-      this.entregas = clientes;
-      this.filterEntregas();
-    });
-  }
 
   filterEntregas() {
     this.filterEntregas$ = this.formBusquedaEntregas.valueChanges.pipe(
@@ -70,10 +59,13 @@ export class EntregasComponent implements ViewWillEnter {
   }
 
   cerrarSesion() {
-    this.loginService.cerrarSesion();
+    //this.loginService.cerrarSesion();
   }
 
   ionViewWillEnter(): void {
-    this.getDeliveries();
+    this.entregasService.getDeliveries().subscribe(delivery => {
+      this.entregas = delivery;
+      this.filterEntregas();
+    });
   }
 }

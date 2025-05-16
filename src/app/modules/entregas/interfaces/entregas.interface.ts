@@ -7,5 +7,5 @@ export interface Entrega {
   delivery_date: string;
   initial_date: string;
   phone: string;
-  products: Producto[];
+  products?: Producto[];
 }

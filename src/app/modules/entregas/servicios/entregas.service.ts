@@ -4,13 +4,21 @@ import { Entrega } from '../interfaces/entregas.interface';
 import { map, Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Producto } from '../interfaces/productos.interface';
+import { LocalizationService } from '../../../shared/services/localization.service';
+import { LocalDatePipe } from '../../../shared/pipes/local-date.pipe';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EntregasService {
   private apiUrl = environment.apiUrlCCP;
-  constructor(private http: HttpClient) {}
+  private localDatePipe: LocalDatePipe;
+  constructor(
+    private http: HttpClient,
+    private localizationService: LocalizationService,
+  ) {
+    this.localDatePipe = new LocalDatePipe(this.localizationService);
+  }
 
   getDeliveries(): Observable<Entrega[]> {
     return this.http.get<any>(`${this.apiUrl}/api/v1/sales/sales`).pipe(

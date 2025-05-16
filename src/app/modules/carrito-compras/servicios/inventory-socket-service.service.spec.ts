@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { InventorySocketServiceService } from './inventory-socket-service.service';
 import { CarritoComprasService } from './carrito-compras.service';
-import { BehaviorSubject } from 'rxjs';
 import { InventoryChangeEvent } from '../interfaces/inventoryChangeEvent';
 import { environment } from 'src/environments/environment';
 
@@ -39,6 +38,25 @@ describe('InventorySocketServiceService', () => {
   let mockSocket: MockSocket;
   let mockIoConnect: jasmine.Spy;
 
+  // Creamos un constructor personalizado para InventorySocketServiceService que no llame a connect()
+  const originalConstructor = InventorySocketServiceService.prototype.constructor;
+  let originalConnect: any;
+
+  beforeAll(() => {
+    // Guardamos la implementación original de connect
+    originalConnect = InventorySocketServiceService.prototype.connect;
+
+    // Sobrescribimos el método connect para que no haga nada
+    InventorySocketServiceService.prototype.connect = function () {
+      // No hacemos nada aquí
+    };
+  });
+
+  afterAll(() => {
+    // Restauramos la implementación original de connect
+    InventorySocketServiceService.prototype.connect = originalConnect;
+  });
+
   beforeEach(() => {
     mockSocket = new MockSocket();
 
@@ -48,22 +66,9 @@ describe('InventorySocketServiceService', () => {
     // Mock para socketIo.connect
     mockIoConnect = jasmine.createSpy().and.returnValue(mockSocket);
 
-    // Usando factory provider para configurar los mocks antes de la ejecución del constructor
     TestBed.configureTestingModule({
       providers: [
-        {
-          provide: InventorySocketServiceService,
-          useFactory: () => {
-            // Creamos una instancia manual para poder modificarla antes de que se ejecute el constructor
-            const serviceInstance = new InventorySocketServiceService(carritoSpy);
-            // Reemplazamos las propiedades privadas
-            (serviceInstance as any).io = mockIoConnect;
-            (serviceInstance as any).socket = mockSocket;
-            // Evitamos que el constructor llame a connect()
-            spyOn(serviceInstance, 'connect').and.callFake(() => {});
-            return serviceInstance;
-          },
-        },
+        InventorySocketServiceService,
         { provide: CarritoComprasService, useValue: carritoSpy },
       ],
     });
@@ -73,6 +78,10 @@ describe('InventorySocketServiceService', () => {
     carritoComprasServiceSpy = TestBed.inject(
       CarritoComprasService,
     ) as jasmine.SpyObj<CarritoComprasService>;
+
+    // Configuramos las propiedades privadas después de la inyección
+    (service as any).io = mockIoConnect;
+    (service as any).socket = mockSocket;
   });
 
   it('should be created', () => {
@@ -80,10 +89,16 @@ describe('InventorySocketServiceService', () => {
   });
 
   it('should connect to socket server with correct parameters', () => {
-    // Restauramos la implementación original de connect para probar
-    (service.connect as jasmine.Spy).and.callThrough();
+    // Restauramos temporalmente la implementación original de connect para este test
+    const tempConnect = service.connect;
 
-    // Forzamos una nueva conexión
+    // Reemplazamos con la implementación original pero solo para esta instancia
+    service.connect = originalConnect;
+
+    // Espiamos el método connect después de restaurarlo
+    spyOn(service, 'connect').and.callThrough();
+
+    // Llamamos al método connect() manualmente
     service.connect();
 
     expect(mockIoConnect).toHaveBeenCalledWith(environment.socketUrlCCP, {
@@ -91,6 +106,9 @@ describe('InventorySocketServiceService', () => {
       transports: ['websocket', 'polling'],
       reconnection: true,
     });
+
+    // Restauramos el método modificado
+    service.connect = tempConnect;
   });
 
   it('should emit subscribe_to_all_products on connect', () => {
@@ -107,8 +125,11 @@ describe('InventorySocketServiceService', () => {
   });
 
   it('should update connection status on connect', () => {
-    // Restauramos la implementación original de connect para probar
-    (service.connect as jasmine.Spy).and.callThrough();
+    // Restauramos temporalmente la implementación original de connect para este test
+    const tempConnect = service.connect;
+
+    // Reemplazamos con la implementación original pero solo para esta instancia
+    service.connect = originalConnect;
 
     // Suscribimos al observable de estado de conexión
     let connectionStatus = null as unknown as string;
@@ -120,6 +141,9 @@ describe('InventorySocketServiceService', () => {
     service.connect();
 
     expect(connectionStatus).toBe('Connecting...');
+
+    // Restauramos el método modificado
+    service.connect = tempConnect;
   });
 
   it('should update connection status on disconnect', () => {
@@ -199,8 +223,11 @@ describe('InventorySocketServiceService', () => {
   });
 
   it('should handle connection errors gracefully', () => {
-    // Restauramos la implementación original de connect para probar
-    (service.connect as jasmine.Spy).and.callThrough();
+    // Restauramos temporalmente la implementación original de connect para este test
+    const tempConnect = service.connect;
+
+    // Reemplazamos con la implementación original pero solo para esta instancia
+    service.connect = originalConnect;
 
     // Preparamos para provocar un error al conectar
     mockIoConnect.and.throwError('Test connection error');
@@ -216,6 +243,9 @@ describe('InventorySocketServiceService', () => {
 
     // Verificamos que se actualizó el estado de conexión correctamente
     expect(connectionStatus).toMatch(/^Error:/);
+
+    // Restauramos el método modificado
+    service.connect = tempConnect;
   });
 
   it('should not setup event listeners if socket is null', () => {
