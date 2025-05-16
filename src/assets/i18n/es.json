@@ -22,6 +22,19 @@
       "PASSWORD_DOES_NOT_MATCH": "Contraseña no coincide"
     }
   },
+  "DELIVERIES": {
+    "TITLE": "Entregas",
+    "GUIDE": "Guide",
+    "ADDRESS": "Address",
+    "STATUS": "Status",
+    "DELIVERY_DATE": "Delivery date",
+    "PHONE": "Phone",
+    "PRODUCTS": "Products",
+    "SEARCH_PLACEHOLDER": "Filter deliveries",
+    "NO_CLIENTS": "No deliveries found",
+    "QUANTITY": "Cantidad",
+    "UNIT": "unidad"
+  },
   "HOME": {
     "TITLE": "Bienvenido"
   },

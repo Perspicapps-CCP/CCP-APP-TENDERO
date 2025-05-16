@@ -1,1 +1,116 @@
-<p>entregas works!</p>
+<ion-header>
+  <ion-toolbar class="px-[1.25rem]">
+    <ion-title> {{ 'DELIVERIES.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarSesion()">
+        <mat-icon style="color: var(--bs-gray-600)" slot="icon-only">logout</mat-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+    <div class="w-full">
+      <div class="flex input-group w-full">
+        <span class="input-group-text pr-2!">
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px">manage_search</mat-icon>
+        </span>
+        <input
+          class="form-control border-l-0!"
+          placeholder="{{ 'DELIVERIES.SEARCH_PLACEHOLDER' | translate }}"
+          [formControl]="formBusquedaEntregas" />
+      </div>
+    </div>
+    <div class="list">
+      @for (cliente of filterEntregas$ | async; track cliente.guide_number) {
+        <mat-card appearance="raised" class="card-content">
+          <div class="header-card">
+            <div>
+              <span class="me-2">{{ 'DELIVERIES.GUIDE' | translate }}</span>
+              <span
+                [innerHTML]="
+                  cliente.guide_number | highlightText: formBusquedaEntregas.value ?? ''
+                ">
+              </span>
+            </div>
+            <span
+              [innerHTML]="cliente.initial_date | highlightText: formBusquedaEntregas.value ?? ''">
+            </span>
+          </div>
+          <div class="content-card">
+            <div class="content-customer">
+              <div class="item-customer">
+                <mat-icon class="material-symbols-rounded">distance</mat-icon>
+                <span>{{ 'DELIVERIES.ADDRESS' | translate }}</span>
+                <span
+                  [innerHTML]="
+                    cliente.address | highlightText: formBusquedaEntregas.value ?? ''
+                  "></span>
+              </div>
+              <div class="item-customer">
+                <mat-icon class="material-symbols-rounded">id_card</mat-icon>
+                <span>{{ 'DELIVERIES.STATUS' | translate }}</span>
+                <span
+                  [innerHTML]="
+                    cliente.status | highlightText: formBusquedaEntregas.value ?? ''
+                  "></span>
+              </div>
+
+              <div class="item-customer">
+                <mat-icon class="material-symbols-rounded">id_card</mat-icon>
+                <span>{{ 'DELIVERIES.DELIVERY_DATE' | translate }}</span>
+                <span
+                  [innerHTML]="
+                    cliente.delivery_date | highlightText: formBusquedaEntregas.value ?? ''
+                  "></span>
+              </div>
+
+              <div class="item-customer">
+                <mat-icon class="material-symbols-rounded">call</mat-icon>
+                <span>{{ 'DELIVERIES.PHONE' | translate }}</span>
+                <span
+                  [innerHTML]="
+                    cliente.phone | highlightText: formBusquedaEntregas.value ?? ''
+                  "></span>
+              </div>
+              <div class="mt-2">
+                <span class="me-1">{{ 'DELIVERIES.PRODUCTS' | translate }}</span>
+                <span>{{ cliente.products?.length }}</span>
+              </div>
+              @for (product of cliente.products; track product.product_code) {
+                <div class="mt-2">
+                  <mat-card appearance="raised" class="card-content">
+                    <div class="content-card">
+                      <div class="image-customer">
+                        <img [src]="product.image" alt="" />
+                        <div class="d-flex flex-column ms-2">
+                          <strong>{{ product.name }}</strong>
+                          <div>
+                            <strong>{{
+                              product.price | currency: 'COP' : 'symbol' : '1.0-0' : 'es-CO'
+                            }}</strong>
+                            <strong> / {{ 'DELIVERIES.UNIT' | translate }} </strong>
+                          </div>
+                          <strong
+                            >{{ 'DELIVERIES.QUANTITY' | translate }} {{ product.quantity }}</strong
+                          >
+                          <a href="" target="_blank">No. {{ product.product_code }}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card>
+                </div>
+              }
+            </div>
+          </div>
+        </mat-card>
+      } @empty {
+        <div class="flex gap-2">
+          <mat-icon>person</mat-icon>
+          <p>{{ 'CLIENTES.NO_CLIENTS' | translate }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</ion-content>
