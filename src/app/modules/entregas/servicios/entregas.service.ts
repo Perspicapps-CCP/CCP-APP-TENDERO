@@ -29,7 +29,8 @@ export class EntregasService {
                   orders.forEach((order: any) => {
                     const product: Producto = {} as Producto;
                     const productValue = items.find(
-                      (prod: any) => prod['product']?.product_code === order.product_code);
+                      (prod: any) => prod['product']?.product_code === order.product_code,
+                    );
                     product.name = productValue['product'].name;
                     product.price = productValue['product'].price;
                     product.quantity = productValue.quantity;
