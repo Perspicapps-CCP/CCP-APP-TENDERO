@@ -38,6 +38,19 @@
       "PASSWORD_DOES_NOT_MATCH": "Password does not match"
     }
   },
+  "DELIVERIES": {
+    "TITLE": "Deliveries",
+    "GUIDE": "Guide",
+    "ADDRESS": "Address",
+    "STATUS": "Status",
+    "DELIVERY_DATE": "Delivery date",
+    "PHONE": "Phone",
+    "PRODUCTS": "Products",
+    "SEARCH_PLACEHOLDER": "Filter deliveries",
+    "NO_CLIENTS": "No deliveries found",
+    "QUANTITY": "Quantity",
+    "UNIT": "per unit"
+  },
   "ORDERS": {
     "TITLE": "Pedidos",
     "SEARCH_PLACEHOLDER": "Filter Pedidos",

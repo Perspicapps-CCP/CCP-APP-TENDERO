@@ -1,3 +1,15 @@
+.scroll-wrapper {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.scroll-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 2rem;
+}
+
 .container-form {
   display: flex;
   flex-direction: column;
