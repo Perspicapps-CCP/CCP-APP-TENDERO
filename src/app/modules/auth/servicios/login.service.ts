@@ -38,6 +38,7 @@ export class LoginService {
         return res;
       }),
       catchError(error => {
+        console.log('AUTH-DEBUG: Error en la petición', JSON.stringify(error));
         return throwError(() => error);
       }),
     );
