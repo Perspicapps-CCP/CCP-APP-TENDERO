@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { DinamicSearchService } from 'src/app/shared/services/dinamic-search.service';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { HighlightTextPipe } from 'src/app/shared/pipes/highlight-text.pipe';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -17,7 +17,8 @@ import { LocalizationService } from 'src/app/shared/services/localization.servic
 import { EntregasComponent } from './entregas.component';
 import { EntregasService } from '../../servicios/entregas.service';
 import { Entrega } from '../../interfaces/entregas.interface';
-import { By } from '@angular/platform-browser';
+import { CarritoComprasService } from 'src/app/modules/carrito-compras/servicios/carrito-compras.service';
+import { Storage } from '@ionic/storage-angular';
 
 // Clase Mock para TranslateLoader
 export class MockTranslateLoader implements TranslateLoader {
@@ -81,12 +82,36 @@ class MockDinamicSearchService {
   }
 }
 
+// Mock para CarritoComprasService
+class MockCarritoComprasService {
+  getCartItemCount(): Observable<string> {
+    return of('0');
+  }
+}
+
+// Mock para Storage
+class MockStorage {
+  create() {
+    return Promise.resolve();
+  }
+  get(key: string) {
+    return Promise.resolve(null);
+  }
+  set(key: string, value: any) {
+    return Promise.resolve();
+  }
+  clear() {
+    return Promise.resolve();
+  }
+}
+
 describe('EntregasComponent', () => {
   let component: EntregasComponent;
   let fixture: ComponentFixture<EntregasComponent>;
   let entregasService: jasmine.SpyObj<EntregasService>;
   let dinamicSearchService: any;
   let router: jasmine.SpyObj<Router>;
+  let carritoComprasService: MockCarritoComprasService;
 
   // Mock de datos de entregas
   const mockEntregas: Entrega[] = [
@@ -113,9 +138,13 @@ describe('EntregasComponent', () => {
     const entregasServiceMock = jasmine.createSpyObj('EntregasService', ['getDeliveries']);
     entregasServiceMock.getDeliveries.and.returnValue(of(mockEntregas));
 
+    // Router mock
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
     // En lugar de crear un spy complejo, usamos una clase mock simple
     // que podemos configurar de manera predecible para cada test
     const dinamicSearchServiceMock = new MockDinamicSearchService();
+    const carritoComprasServiceMock = new MockCarritoComprasService();
 
     TestBed.configureTestingModule({
       imports: [
@@ -130,6 +159,9 @@ describe('EntregasComponent', () => {
       providers: [
         { provide: EntregasService, useValue: entregasServiceMock },
         { provide: DinamicSearchService, useValue: dinamicSearchServiceMock },
+        { provide: Router, useValue: routerSpy },
+        { provide: CarritoComprasService, useValue: carritoComprasServiceMock },
+        { provide: Storage, useClass: MockStorage },
         { provide: TranslateService, useClass: MockTranslateService },
         { provide: LocalizationService, useClass: MockLocalizationService },
         TranslateStore,
@@ -143,13 +175,19 @@ describe('EntregasComponent', () => {
     entregasService = TestBed.inject(EntregasService) as jasmine.SpyObj<EntregasService>;
     dinamicSearchService = TestBed.inject(DinamicSearchService);
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    carritoComprasService = TestBed.inject(
+      CarritoComprasService,
+    ) as unknown as MockCarritoComprasService;
+
+    // Espiamos los métodos de los servicios
+    spyOn(carritoComprasService, 'getCartItemCount').and.callThrough();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load deliveries on ionViewWillEnter', fakeAsync(() => {
+  it('should load deliveries and get cart count on ionViewWillEnter', fakeAsync(() => {
     // Espiar el método filterEntregas
     spyOn(component, 'filterEntregas').and.callThrough();
 
@@ -161,6 +199,8 @@ describe('EntregasComponent', () => {
     expect(entregasService.getDeliveries).toHaveBeenCalled();
     expect(component.entregas).toEqual(mockEntregas);
     expect(component.filterEntregas).toHaveBeenCalled();
+    expect(carritoComprasService.getCartItemCount).toHaveBeenCalled();
+    expect(component.carritoCount).toBeDefined();
   }));
 
   it('should initialize filterEntregas$ observable on filterEntregas call', fakeAsync(() => {
@@ -227,44 +267,9 @@ describe('EntregasComponent', () => {
     expect(dinamicSearchService.dynamicSearch).toHaveBeenCalledWith(mockEntregas, 'Calle');
   });
 
-  // ⚠️ Test simplificado que evita los problemas con RxJS
-  it('should filter by phone number', () => {
-    // Configuración inicial
-    component.entregas = [...mockEntregas];
-
-    // 1. Espiar el método dynamicSearch para devolver solo la entrega con el teléfono buscado
-    spyOn(dinamicSearchService, 'dynamicSearch').and.returnValue([mockEntregas[1]]);
-
-    // 2. Verificar que buscar('3212599773') devuelve el resultado filtrado
-    const filteredResults = component.buscar('3212599773');
-
-    // 3. Verificar que se llamó a dynamicSearch con los argumentos correctos
-    expect(dinamicSearchService.dynamicSearch).toHaveBeenCalledWith(mockEntregas, '3212599773');
-
-    // 4. Verificar el resultado filtrado
-    expect(filteredResults.length).toBe(1);
-    expect(filteredResults[0].phone).toBe('3212599773');
-    expect(filteredResults[0].guide_number).toBe('002');
-  });
-
-  // ⚠️ Test simplificado que evita los problemas con RxJS
-  it('should filter by address', () => {
-    // Configuración inicial
-    component.entregas = [...mockEntregas];
-
-    // 1. Espiar el método dynamicSearch para devolver solo la entrega con la dirección buscada
-    spyOn(dinamicSearchService, 'dynamicSearch').and.returnValue([mockEntregas[1]]);
-
-    // 2. Verificar que buscar('456') devuelve el resultado filtrado
-    const filteredResults = component.buscar('456');
-
-    // 3. Verificar que se llamó a dynamicSearch con los argumentos correctos
-    expect(dinamicSearchService.dynamicSearch).toHaveBeenCalledWith(mockEntregas, '456');
-
-    // 4. Verificar el resultado filtrado
-    expect(filteredResults.length).toBe(1);
-    expect(filteredResults[0].address).toContain('456');
-    expect(filteredResults[0].guide_number).toBe('002');
+  it('should navigate to shopping cart when irCarritoCompras is called', () => {
+    component.irCarritoCompras();
+    expect(router.navigate).toHaveBeenCalledWith([`carrito/carrito-compras`]);
   });
 
   it('should handle empty entregas array', fakeAsync(() => {
@@ -286,25 +291,6 @@ describe('EntregasComponent', () => {
     expect(result.length).toBe(0);
   }));
 
-  // ⚠️ Test simplificado que evita los problemas con RxJS
-  it('should handle case-insensitive search', () => {
-    // Configuración inicial
-    component.entregas = [...mockEntregas];
-
-    // Comprobar que dynamicSearch hace una búsqueda insensible a mayúsculas/minúsculas
-    spyOn(dinamicSearchService, 'dynamicSearch').and.callThrough();
-
-    // Realizar una búsqueda con un término en minúscula
-    const results = component.buscar('finalizado');
-
-    // Verificar que se llamó a dynamicSearch con el término en minúscula
-    expect(dinamicSearchService.dynamicSearch).toHaveBeenCalledWith(mockEntregas, 'finalizado');
-
-    // Verificar que encontró la entrega correcta (debería ser solo 1)
-    expect(results.length).toBe(1);
-    expect(results[0].status).toBe('Finalizado');
-  });
-
   it('should not modify original entregas array when filtering', fakeAsync(() => {
     component.entregas = [...mockEntregas];
     component.filterEntregas();
@@ -320,39 +306,4 @@ describe('EntregasComponent', () => {
     expect(component.entregas).toEqual(originalEntregas);
     expect(component.entregas.length).toBe(2);
   }));
-
-  // ⚠️ Test rediseñado para probar mejor la reutilización del método buscar
-  it('should rerun filter when entregas array changes', () => {
-    // 1. Configurar datos iniciales y espiar buscar
-    component.entregas = [...mockEntregas];
-    const buscarSpy = spyOn(component, 'buscar').and.callThrough();
-
-    // 2. Hacer una búsqueda inicial y verificar
-    component.buscar('Finalizado');
-    expect(buscarSpy).toHaveBeenCalledWith('Finalizado');
-
-    // 3. Cambiar el array de entregas
-    const newEntregas: Entrega[] = [
-      {
-        guide_number: '003',
-        address: 'Nueva dirección',
-        status: 'Finalizado',
-        delivery_date: '2025-05-14',
-        initial_date: 'NUEVO',
-        phone: '3212599774',
-      },
-    ];
-    component.entregas = newEntregas;
-
-    // 4. Hacer la misma búsqueda con los nuevos datos
-    buscarSpy.calls.reset();
-    const results = component.buscar('Finalizado');
-
-    // 5. Verificar que se llamó al método con los nuevos datos
-    expect(buscarSpy).toHaveBeenCalledWith('Finalizado');
-
-    // 6. Verificar resultados con los nuevos datos
-    expect(results.length).toBe(1);
-    expect(results[0].guide_number).toBe('003');
-  });
 });

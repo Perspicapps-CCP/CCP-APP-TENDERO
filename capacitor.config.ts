@@ -1,4 +1,5 @@
 import type { CapacitorConfig } from '@capacitor/cli';
+import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
   appId: 'com.proyecto_grupo_3_vendedor.ccp-tendero',
@@ -15,6 +16,11 @@ const config: CapacitorConfig = {
       backgroundColor: '#3880ff',
       style: 'light',
       overlaysWebView: false,
+    },
+    Keyboard: {
+      resize: KeyboardResize.Body,
+      style: KeyboardStyle.Dark,
+      resizeOnFullScreen: true,
     },
   },
   android: {
