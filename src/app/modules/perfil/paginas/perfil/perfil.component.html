@@ -1,1 +1,27 @@
-<p>perfil works!</p>
+<div class="flex flex-col h-full w-full">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{ 'PERFIL.TITLE' | translate }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="irCarritoCompras()">
+          <mat-icon
+            class="material-symbols-rounded"
+            style="color: var(--bs-gray-600)"
+            slot="icon-only"
+            >shopping_cart</mat-icon
+          >
+        </ion-button>
+        <div class="badge">{{ carritoCount | async }}</div>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-no-padding">
+    <div class="flex flex-col w-full h-full">
+      <div class="p-4">
+        <button class="btn w-full button-login btn-outline-danger" type="button" (click)="logout()">
+          {{ 'PERFIL.LOGOUT' | translate }}
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</div>

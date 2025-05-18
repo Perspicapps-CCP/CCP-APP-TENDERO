@@ -16,6 +16,8 @@ import { map, Observable, startWith } from 'rxjs';
 import { DinamicSearchService } from '../../../../shared/services/dinamic-search.service';
 import { Entrega } from '../../interfaces/entregas.interface';
 import { EntregasService } from '../../servicios/entregas.service';
+import { Router } from '@angular/router';
+import { CarritoComprasService } from 'src/app/modules/carrito-compras/servicios/carrito-compras.service';
 
 @Component({
   selector: 'app-entregas',
@@ -38,10 +40,13 @@ export class EntregasComponent implements ViewWillEnter {
   formBusquedaEntregas = new FormControl('');
   entregas: Entrega[] = [];
   filterEntregas$?: Observable<Entrega[]>;
+  carritoCount?: Observable<string>;
 
   constructor(
     private entregasService: EntregasService,
     private dinamicSearchService: DinamicSearchService,
+    private router: Router,
+    private carritoComprasService: CarritoComprasService,
   ) {}
 
   filterEntregas() {
@@ -58,12 +63,13 @@ export class EntregasComponent implements ViewWillEnter {
     return this.entregas.slice();
   }
 
-  cerrarSesion() {
-    //this.loginService.cerrarSesion();
+  irCarritoCompras() {
+    this.router.navigate([`carrito/carrito-compras`]);
   }
 
   ionViewWillEnter(): void {
     this.entregasService.getDeliveries().subscribe(delivery => {
+      this.carritoCount = this.carritoComprasService.getCartItemCount();
       this.entregas = delivery;
       this.filterEntregas();
     });

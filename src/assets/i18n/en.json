@@ -111,5 +111,9 @@
     "FORM": {
       "QUANTITY": "Quantity"
     }
+  },
+  "PERFIL": {
+    "TITLE": "Profile",
+    "LOGOUT": "Sign out"
   }
 }
